@@ -3,14 +3,20 @@ import InputBox from './InputBox';
 import ContainerBox from './ContainerBox';
 import Text from './Text';
 import Button from './Button';
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import ErrorText from './ErrorText';
 import TextContainer from './TextContainer';
 import Logo from './Logo';
+import { v4 as uuidv4 } from 'uuid';
+import { v5 as uuidv5 } from 'uuid';
 
-const Container = () => {
+const Container = (props) => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const onSubmit = (data) => {
+        const UID = uuidv5(data.id, uuidv4())
+        data["uid"] = UID
+        props.setUserData(data)
+    };
     return (
         <form onSubmit = {handleSubmit(onSubmit)}>
             <ContainerBox>
@@ -40,7 +46,7 @@ const Container = () => {
                     <Text>비밀번호</Text>
                     <ErrorText>{errors?.password?.message}</ErrorText>
                 </TextContainer>
-
+                <Text>(12~20자리 최소 1개의 문자, 숫자, 특수문자))</Text>
                 <InputBox type="password" {
                     ...register("password", {
                         required : "비밀번호를 입력해주세요.",
@@ -51,7 +57,11 @@ const Container = () => {
                         maxLength : {
                             value : 20,
                             message : "12 ~ 20자 사이로 입력해주세요."
-                        }
+                        },
+                        pattern : {
+                            value : /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{12,20}$/g,
+                            message : "조건을 확인해주세요."
+                        },
                     })
                 }></InputBox>
 
@@ -98,7 +108,6 @@ const Container = () => {
                         }
                     })
                 }></InputBox>
-
 
                 <Button type="submit">회원 가입</Button>
             </ContainerBox>

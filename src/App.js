@@ -13,7 +13,7 @@ function App() {
     <Router>
       <Switch>
         <Route path={routes.home} exact>
-          {true ? (
+          {false ? (
               <Home/>
           ) : (
             <Login />

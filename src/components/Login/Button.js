@@ -9,6 +9,7 @@ const Button = styled.button`
     width: 312px;
     height: 45px;
     margin-top: 10px;
+    cursor: pointer;
     &:hover {
         outline: 0.7px;
         outline-color: DodgerBlue;

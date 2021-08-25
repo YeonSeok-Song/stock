@@ -18,9 +18,14 @@ STOMEMO
    - [ ] link backend
 
 ### Home page
-- [ ] form
-- [ ] function
-- [ ] link backend
+1. form
+- [x] menu 2021.08.25
+- [ ] stock form 2021.08.25
+- [ ] search form 
+2. function
+- [x] menu
+- [ ] search
+- [ ] draw chart
 
 ### Profile page
 - [ ] form

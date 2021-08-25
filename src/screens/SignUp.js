@@ -4,19 +4,22 @@ import Container from '../components/SignUp/Container';
 import { Background } from '../GlobalStyle';
 import axios from 'axios';
 import server from "../config/server";
+import PageTitle from "../components/PageTitle";
 
 const SignUp = () => {
+
+    //로그인 상태면 리다이랙트
 
     const [userData, setUserData] = useState()
 
     useEffect(async () => {
         if(userData) {
-            // axios.post("34.64.207.127:8080", userData).then((response) => {
-            //     console.log(response)
-            // }).catch((error) => {
-            //     console.log(error)
-            // })
-            window.sessionStorage.setItem("token", true);
+            await axios.post(server.ip, userData).then((response) => {
+                console.log(response)
+            }).catch((error) => {
+                console.log(error)
+            })
+            // window.sessionStorage.setItem("token", true);
             // const cacheStorage = await caches.open('userInfo')
             // await cacheStorage.add("LoginState")
             // console.log(userData)
@@ -28,6 +31,7 @@ const SignUp = () => {
 
     return (
         <Background>
+            <PageTitle title="Signup" />
             <Container setUserData = {setUserData}></Container>
         </Background>
     );

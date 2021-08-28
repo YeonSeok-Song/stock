@@ -1,11 +1,17 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import Container from './Container';
+import Input from './Input';
 
 const SearchContainer = props => {
+    const [keyword, setKeyWord] = useState("");
+    useEffect(() => {
+        console.log(keyword)
+    }, [keyword])
     return (
-        <div>
-            search
-        </div>
+        <Container>
+            <Input setKeyWord = {setKeyWord}></Input>
+        </Container>
     );
 };
 

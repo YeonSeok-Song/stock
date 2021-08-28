@@ -8,11 +8,15 @@ const StockTitle = () => {
     return (
         <Box sx={{ 
             width : "300px",
+            marginTop : "10px",
+            marginLeft : "20px",
+            marginBottom : "10px",
         }}>
             <FormControl fullWidth>
                 <NativeSelect
                     style = {{
-                        fontSize : "50px",
+                        fontSize : "30px",
+                        fontWeight : 100,
                     }}
                     defaultValue={30}
                     inputProps={{

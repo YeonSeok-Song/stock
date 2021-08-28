@@ -3,11 +3,11 @@ import { GiChart } from 'react-icons/gi';
 import { BiSearchAlt } from 'react-icons/bi';
 import { RiUserLine } from 'react-icons/ri';
 
-
+//menu version 1
 const MenuContainer = styled.div`
-    position: absolute;
-    left: 0%;
-    top: 20%;
+    position: fixed;
+    left: 2px;
+    top: 200px;
     width: 80px;
     height: 230px;
     display: flex;

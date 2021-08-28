@@ -44,7 +44,6 @@ const bottomWidth = 3;
 const height = 20;
 
 function buyPath({ x, y }) {
-    console.log(x, y)
 	return `M${x} ${y} `
 		+ `L${x + halfWidth} ${y + halfWidth} `
 		+ `L${x + bottomWidth} ${y + halfWidth} `
@@ -56,7 +55,6 @@ function buyPath({ x, y }) {
 }
 
 function sellPath({ x, y }) {
-    console.log(x, y)
 	return `M${x} ${y} `
 		+ `L${x + halfWidth} ${y - halfWidth} `
 		+ `L${x + bottomWidth} ${y - halfWidth} `
@@ -71,7 +69,7 @@ const Graph = (props) => {
 
     const [time, setTime] = useState("day");
 
-    const [height, setHeight] = useState(window.innerHeight * 0.6)
+    const [height, setHeight] = useState(window.innerHeight * 0.68)
     const [width, setWidth] = useState(window.innerWidth * 0.78)
 
     const handleChange = (event) => {
@@ -80,13 +78,39 @@ const Graph = (props) => {
 
     useEffect(() => {
         window.addEventListener('resize', (event) => {
-            setHeight(window.innerHeight * 0.6)
+            setHeight(window.innerHeight * 0.68)
             setWidth(window.innerWidth * 0.78)
         }, true);
     },[height, width])
 
+    const buySell = algo()
+        .windowSize(2)
+        .accumulator(([prev, now]) => {
+            const { ema20: prevShortTerm, ema50: prevLongTerm } = prev;
+            const { ema20: nowShortTerm, ema50: nowLongTerm } = now;
+            if (prevShortTerm < prevLongTerm && nowShortTerm > nowLongTerm) return "LONG";
+            if (prevShortTerm > prevLongTerm && nowShortTerm < nowLongTerm) return "SHORT";
+        })
+        .merge((d, c) => { d.longShort = c; });
+
     const defaultAnnotationProps = {
         onClick: console.log.bind(console),
+    };
+
+    const longAnnotationProps = {
+        ...defaultAnnotationProps,
+        y: ({ yScale, datum }) => yScale(datum.low),
+        fill: "#006517",
+        path: buyPath,
+        tooltip: "Go long",
+    };
+
+    const shortAnnotationProps = {
+        ...defaultAnnotationProps,
+        y: ({ yScale, datum }) => yScale(datum.high),
+        fill: "#FF0000",
+        path: sellPath,
+        tooltip: "Go short",
     };
 
     const ScaleProvider = discontinuousTimeScaleProviderBuilder().inputDateAccessor(
@@ -111,23 +135,11 @@ const Graph = (props) => {
     })
     .accessor((d) => d.ema26);
 
-    const buySell = algo()
-        .windowSize(2)
-        .accumulator(([prev, now]) => {
-            const { ema12: prevShortTerm, ema26: prevLongTerm } = prev;
-            const { ema12: nowShortTerm, ema26: nowLongTerm } = now;
-            if (prevShortTerm < prevLongTerm && nowShortTerm > nowLongTerm) return "LONG";
-            if (prevShortTerm > prevLongTerm && nowShortTerm < nowLongTerm) return "SHORT";
-        })
-        .merge((d, c) => { d.longShort = c; });
-
     const elder = elderRay();
 
     const calculatedData = elder(ema26(ema12(initialData)));
-    // const checkData = buySell(ema26(ema12(initialData)))
-    // console.log(checkData)
     const { data, xScale, xAccessor, displayXAccessor } = ScaleProvider(
-        calculatedData
+        [...initialData].reverse()
     );
     const pricesDisplayFormat = format(".2f");
     const max = xAccessor(data[data.length - 1]);
@@ -171,22 +183,6 @@ const Graph = (props) => {
     
     const openCloseColor = (data) => {
         return data.close > data.open ? "#ef5350" : "#26a69a";
-    };
-
-    const longAnnotationProps = {
-        ...defaultAnnotationProps,
-        y: ({ yScale, datum }) => yScale(datum.low),
-        fill: "#006517",
-        path: buyPath,
-        tooltip: "Go long",
-    };
-
-    const shortAnnotationProps = {
-        ...defaultAnnotationProps,
-        y: ({ yScale, datum }) => yScale(datum.high),
-        fill: "#FF0000",
-        path: sellPath,
-        tooltip: "Go short",
     };
 
     return (

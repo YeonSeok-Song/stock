@@ -20,8 +20,8 @@ STOMEMO
 ### Home page
 1. form
 - [x] menu 2021.08.25
-- [ ] stock form 2021.08.25
-- [ ] search form 
+- [x] stock form 2021.08.25
+- [x] search form 
 2. function
 - [x] menu
 - [ ] search

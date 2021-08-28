@@ -7,14 +7,10 @@ import { useForm } from "react-hook-form";
 import ErrorText from './ErrorText';
 import TextContainer from './TextContainer';
 import Logo from './Logo';
-import { v4 as uuidv4 } from 'uuid';
-import { v5 as uuidv5 } from 'uuid';
 
 const Container = (props) => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = (data) => {
-        const UID = uuidv5(data.id, uuidv4())
-        data["uid"] = UID
         props.setUserData(data)
     };
     return (
@@ -23,9 +19,9 @@ const Container = (props) => {
                 <Logo src="/img/STOMEMO-logo-resize.png"/>
                 <TextContainer>
                     <Text>아이디</Text>
-                    <ErrorText>{errors?.id?.message}</ErrorText>
+                    <ErrorText>{errors?.user_id?.message}</ErrorText>
                 </TextContainer>
-                <InputBox type="text" {...register("id", {
+                <InputBox type="text" {...register("user_id", {
                     required: "아이디를 입력해주세요.",
                     maxLength: {
                         value : 8,
@@ -96,7 +92,7 @@ const Container = (props) => {
                 }></InputBox>
 
                 <TextContainer>
-                    <Text>본인확인 이메일(선택)</Text>
+                    <Text>본인확인 이메일</Text>
                     <ErrorText>{errors?.email?.message}</ErrorText>
                 </TextContainer>
                 

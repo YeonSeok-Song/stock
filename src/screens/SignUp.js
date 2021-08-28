@@ -5,6 +5,15 @@ import { Background } from '../GlobalStyle';
 import axios from 'axios';
 import server from "../config/server";
 import PageTitle from "../components/PageTitle";
+import styled from 'styled-components';
+
+const SignUpBox = styled.div`
+    background-color: white;
+    padding: 30px 10px 30px 10px;
+    border-color: LightSkyBlue;
+    border-style : solid;
+    border-width: 2px;
+`
 
 const SignUp = () => {
 
@@ -14,11 +23,18 @@ const SignUp = () => {
 
     useEffect(async () => {
         if(userData) {
-            await axios.post(server.ip, userData).then((response) => {
-                console.log(response)
-            }).catch((error) => {
-                console.log(error)
+            await axios({
+                method: "post",
+                url: `http://${server.ip}/users/`,
+                data: userData
             })
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
             // window.sessionStorage.setItem("token", true);
             // const cacheStorage = await caches.open('userInfo')
             // await cacheStorage.add("LoginState")
@@ -31,8 +47,10 @@ const SignUp = () => {
 
     return (
         <Background>
-            <PageTitle title="Signup" />
-            <Container setUserData = {setUserData}></Container>
+            <SignUpBox>
+                <PageTitle title="Signup" />
+                <Container setUserData = {setUserData}></Container>
+            </SignUpBox>
         </Background>
     );
 };

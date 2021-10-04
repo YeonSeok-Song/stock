@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { RiUserFill } from 'react-icons/ri';
+import { HiOutlineLogout } from 'react-icons/hi';
 
 const Container = styled.div`
     display: flex;
@@ -13,7 +14,7 @@ const Container = styled.div`
     border-bottom: solid;
     border-color: LightSkyBlue;
     border-width: 0.12rem;
-    
+    z-index: 10;
 `
 const LogoContainer = styled.div`
     width: 75%;
@@ -32,16 +33,33 @@ const Logo = styled.img`
 `
 
 const LogoutButton = styled.button`
-    border: none;
-    margin-right: 30px;
-    background-color: transparent;
-    font-size: 18px;
-    margin-left : 20px;
-    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: deepskyblue;
+    border-style: solid;
+    border-radius: 50%;
+    border-width: 0;
+    width : 27px;
+    height : 27px;
+    color : white;
+    margin-right: 25px;
 `
 
 const ProfileButton = styled.a`
-    color : black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: deepskyblue;
+    border-style: solid;
+    border-radius: 50%;
+    border-width: 0;
+    width : 27px;
+    height : 27px;
+    color : white;
+    margin-right: 15px;
 `
 
 const Header = (props) => {
@@ -52,7 +70,9 @@ const Header = (props) => {
                 <a href="/"><Logo src="/img/STOMEMO-logo-resize.png"/></a>
             </LogoContainer>
             <UserContainer>
-                <LogoutButton>Log Out</LogoutButton>
+                <LogoutButton>
+                    <HiOutlineLogout size="22"/>
+                </LogoutButton>
                 <ProfileButton href={profileLink}>
                     <RiUserFill size="22"/>
                 </ProfileButton>

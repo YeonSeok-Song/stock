@@ -70,7 +70,7 @@ const Container = (props) => {
                     ...register("name", {
                         required : "이름을 입력해주세요.",
                         pattern: {
-                            value : /^[A-Za-z]+$/g,
+                            value : /^[ㄱ-ㅎㅏ-ㅣ가-힣A-Za-z]+$/g,
                             message : "이름... 확실한거죠?"
                         }
                     })
@@ -98,6 +98,7 @@ const Container = (props) => {
                 
                 <InputBox type="text" {
                     ...register("email", {
+                        required : "true",
                         pattern : {
                             value : /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/g,
                             message : "이메일 형식이 맞지 않네요."

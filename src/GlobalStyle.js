@@ -9,3 +9,8 @@ export const Background = styled.div`
     height: 100vh;
     background-color: aliceblue;
 `;
+
+export const lineColor = "LightSkyBlue";
+export const iconColor = "deepskyblue";
+export const lineWidth = "0.3px";
+export const backColor = "aliceblue";

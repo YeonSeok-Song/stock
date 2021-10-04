@@ -71,8 +71,36 @@ const Graph = (props) => {
 
     const [time, setTime] = useState("day");
 
-    const [height, setHeight] = useState(window.innerHeight * 0.6)
-    const [width, setWidth] = useState(window.innerWidth * 0.78)
+    const [height, setHeight] = useState(window.innerHeight * 0.45)
+    const [width, setWidth] = useState(window.innerWidth * 0.45)
+
+    const resizeHeight = (height) => {
+        if(height < 450 || height > 550) {
+            if(height < 450) {
+                setHeight(450)
+            }
+            else if(height > 550) {
+                setHeight(550)
+            }
+        }
+        else {
+            setHeight(window.innerHeight * 0.45)
+        }
+    }
+
+    const resizeWidth = (width) => {
+        if(width < 400 || width > 800) {
+            if(width < 400) {
+                setWidth(400)
+            }
+            else if(width > 800) {
+                setWidth(800)
+            }
+        }
+        else {
+            setWidth(window.innerWidth * 0.45)
+        }
+    }
 
     const handleChange = (event) => {
         setTime(event.target.value);
@@ -80,8 +108,8 @@ const Graph = (props) => {
 
     useEffect(() => {
         window.addEventListener('resize', (event) => {
-            setHeight(window.innerHeight * 0.6)
-            setWidth(window.innerWidth * 0.78)
+            resizeHeight(window.innerHeight * 0.45)
+            resizeWidth(window.innerWidth * 0.45)
         }, true);
     },[height, width])
 
@@ -191,35 +219,7 @@ const Graph = (props) => {
 
     return (
         <div>
-            <FormControl sx={{ 
-                marginLeft : 2.3, 
-                Width: 70,
-                marginBottom : 1,
-            }}>
-                <InputLabel style={{
-                    position: "relative",
-                    marginTop : "-10px",
-                    top : "16px",
-                    fontSize : "13px",
-                }} id="demo-simple-select-autowidth-label">날짜</InputLabel>
-                <Select
-                    style={{
-                        fontSize : "11px",
-                        height : "25px",
-                    }}
-                    labelId="demo-simple-select-autowidth-label"
-                    id="demo-simple-select-autowidth"
-                    value={time}
-                    onChange={handleChange}
-                    autoWidth
-                    label="날짜"
-                >
-                    <MenuItem value={"year"}>년</MenuItem>
-                    <MenuItem value={"month"}>월</MenuItem>
-                    <MenuItem value={"week"}>주</MenuItem>
-                    <MenuItem value={"day"}>일</MenuItem>
-                </Select>
-            </FormControl> 
+            
             <ChartCanvas
                 height={height}
                 ratio={3}

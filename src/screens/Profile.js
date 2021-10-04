@@ -1,21 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import { Background } from '../GlobalStyle';
 import styled from 'styled-components';
+import PageTitle from "../components/PageTitle";
+import Header from '../components/Header';
+import ProfileContainer from '../components/Profile/ProfileContainer';
 
-const BackIcon = styled.a`
-    position: fixed;
-    top : 20px;
-    left : 10px;
-    width : 100px;
-    height : 100px;
-    background-color: red;
+const Background = styled.div`
+    width: 100%;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `
 
 const Profile = (props) => {
+
     return (
         <Background>
-            
+            <Header />
+            <PageTitle title="Profile" />
+            <ProfileContainer></ProfileContainer>
         </Background>
     );
 };

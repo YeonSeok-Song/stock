@@ -6,11 +6,10 @@ import { BiSearchAlt } from 'react-icons/bi';
 const InputContainer = styled.div`
     position: relative;
     padding: 15px 0 0;
-    margin-top: 10px;
-    width: 50%;
+    
     .form__field {
         font-family: inherit;
-        width: 400px;
+        width: 100%;
         border: 0;
         border-bottom: 2px solid black;
         outline: 0;
@@ -19,6 +18,7 @@ const InputContainer = styled.div`
         padding: 7px 0;
         background: transparent;
         transition: border-color 0.2s;
+        text-align: center;
     }
     /* .form__field::placeholder {
         color: transparent;
@@ -39,7 +39,7 @@ const InputContainer = styled.div`
     .form__button {
         position: absolute;
         top: 25px;
-        left: 350px;
+        left: 80%;
         width: 60px;
         height: 30px;
         display: block;
@@ -81,7 +81,7 @@ const Input = (props) => {
     return (
         <form onSubmit = {handleSubmit(onSubmit)}>
             <InputContainer>
-                <input type="text" class="form__field" placeholder="종목 검색 또는 메모 검색" name="name" required {
+                <input type="text" className="form__field" placeholder="메모 검색" name="name" required {
                     ...register("keyword", {
                         pattern: {
                             value : /^[ㄱ-ㅎㅏ-ㅣ가-힣A-Za-z0-9]+$/g,
@@ -89,7 +89,7 @@ const Input = (props) => {
                     })
                 }/>
                 {/* <label for="name" class="form__label">종목 검색 또는 메모 검색</label> */}
-                <button type="submit" class="form__button"><BiSearchAlt size="30" color="black"/></button>
+                <button type="submit" className="form__button"><BiSearchAlt size="30" color="black"/></button>
             </InputContainer>
         </form>
     );

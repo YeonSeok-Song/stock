@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import dummy from '../../../dummy';
 
-const StockTitle = () => {
+const StockTitle = (props) => {
+
+    const [selectName, setSelect] = useState(props.stock)
+
+    useEffect(() => {
+        setSelect(props.stock)
+    }, [props.stock])
+
     return (
         <Box sx={{ 
             width : "300px",
@@ -18,15 +26,21 @@ const StockTitle = () => {
                         fontSize : "30px",
                         fontWeight : 100,
                     }}
-                    defaultValue={30}
+                    onChange = {(e) => {
+                        setSelect(e.target.value)
+                    }}
+                    defaultValue = {dummy.hasStock[0].stockName}
+                    value={selectName}
                     inputProps={{
                         name: 'age',
                         id: 'uncontrolled-native',
                     }}
                     >
-                    <option value={10}>Apple</option>
-                    <option value={20}>Alphabet</option>
-                    <option value={30}>Amazon</option>
+                    {
+                        dummy.hasStock.map((d, i) => {
+                            return <option key={i} value={d.stockName}>{d.stockName}</option>
+                        })
+                    }
                 </NativeSelect>
             </FormControl>
         </Box>

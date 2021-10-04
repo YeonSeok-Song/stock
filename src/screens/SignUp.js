@@ -43,7 +43,7 @@ const SignUp = () => {
             // const cachedResponse = await cacheStorage.match("LoginState")
             // console.log(cachedResponse)
         }
-    })
+    }, [userData])
 
     return (
         <Background>
